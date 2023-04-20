@@ -1,0 +1,661 @@
+basePath: /
+definitions:
+  go-dts_pkg_auth_common.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  go-dts_pkg_auth_common.RegisterRequest:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      username:
+        minLength: 6
+        type: string
+    required:
+    - age
+    - email
+    - password
+    - username
+    type: object
+  go-dts_pkg_util_http.BaseResponse:
+    properties:
+      data: {}
+      error_message:
+        type: string
+      status:
+        type: string
+    type: object
+  pkg_comment_delivery.reqInsert:
+    properties:
+      message:
+        type: string
+      photo_id:
+        type: integer
+    required:
+    - message
+    - photo_id
+    type: object
+  pkg_comment_delivery.reqUpdate:
+    properties:
+      message:
+        type: string
+      photo_id:
+        type: integer
+    type: object
+  pkg_photo_delivery.reqInsert:
+    properties:
+      caption:
+        type: string
+      photo_url:
+        type: string
+      title:
+        type: string
+    required:
+    - photo_url
+    - title
+    type: object
+  pkg_photo_delivery.reqUpdate:
+    properties:
+      caption:
+        type: string
+      photo_url:
+        type: string
+      title:
+        type: string
+    type: object
+  pkg_root_delivery.RootHandler:
+    properties:
+      build_timestamp:
+        type: string
+      env:
+        type: string
+      title:
+        type: string
+      version:
+        type: string
+    type: object
+  pkg_socialmedia_delivery.reqInsert:
+    properties:
+      name:
+        type: string
+      url:
+        type: string
+    required:
+    - name
+    - url
+    type: object
+  pkg_socialmedia_delivery.reqUpdate:
+    properties:
+      name:
+        type: string
+      url:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is the API documentation for DTS project
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: API Documentation for DTS project
+  version: "1.0"
+paths:
+  /:
+    get:
+      description: Check Server is alive.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pkg_root_delivery.RootHandler'
+      summary: Check if server is alive
+      tags:
+      - ping
+  /comment:
+    get:
+      description: FindAllComment get all comment  from database.
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: FindAllComment  all comment  from database.
+      tags:
+      - Comment
+    post:
+      description: InsertComment insert comment to database.
+      parameters:
+      - description: Commennt Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/pkg_comment_delivery.reqInsert'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: InsertComment insert comment to database.
+      tags:
+      - Comment
+  /comment/{id}:
+    delete:
+      description: DeleteComment delete comment.
+      operationId: get-string-by-int
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: DeleteComment delete comment.
+      tags:
+      - Comment
+    get:
+      description: FindCommentByID get comment by ID from database.
+      operationId: get-string-by-int
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: FindCommentByID get comment by ID from database.
+      tags:
+      - Comment
+    put:
+      description: UpdateComment update comment.
+      operationId: get-string-by-int
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Comment Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/pkg_comment_delivery.reqUpdate'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: UpdateComment update comment.
+      tags:
+      - Comment
+  /login:
+    post:
+      description: Login user to get token.
+      parameters:
+      - description: Login Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/go-dts_pkg_auth_common.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      summary: Login user to get token.
+      tags:
+      - auth
+  /photo:
+    get:
+      description: FindAllPhoto get all photo from database.
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: FindAllPhoto get all photo from database.
+      tags:
+      - Photo
+    post:
+      description: InsertPhoto insert photo to database.
+      parameters:
+      - description: Photo Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/pkg_photo_delivery.reqInsert'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: InsertPhoto insert photo to database.
+      tags:
+      - Photo
+  /photo/{id}:
+    delete:
+      description: DeletePhoto delete photo by ID.
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: DeletePhoto delete photo by ID.
+      tags:
+      - Photo
+    get:
+      description: FindPhotoByID get photo by ID from database.
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: FindPhotoByID get photo by ID from database.
+      tags:
+      - Photo
+    put:
+      description: UpdatePhoto update photo by ID.
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Photo Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/pkg_photo_delivery.reqUpdate'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: UpdatePhoto update photo by ID.
+      tags:
+      - Photo
+  /register:
+    post:
+      description: Regis user.
+      parameters:
+      - description: Registration Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/go-dts_pkg_auth_common.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      summary: Regis user.
+      tags:
+      - auth
+  /socialmedia:
+    get:
+      description: FindAllSocialMedia get all SocialMedia from database.
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: FindAllSocialMedia get all SocialMedia from database.
+      tags:
+      - SocialMedia
+    post:
+      description: InsertSocialMedia insert socialMedia to database.
+      parameters:
+      - description: SocialMedia Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/pkg_socialmedia_delivery.reqInsert'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: InsertSocialMedia insert socialMedia to database.
+      tags:
+      - SocialMedia
+  /socialmedia/{id}:
+    delete:
+      description: DeleteSocialMedia SocialMedia photo by ID.
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: DeleteSocialMedia SocialMedia photo by ID.
+      tags:
+      - SocialMedia
+    get:
+      description: FindSocialMediaByID get SocialMedia by ID from database.
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: FindSocialMediaByID get SocialMedia by ID from database.
+      tags:
+      - SocialMedia
+    put:
+      description: UpdateSocialMedia update SocialMedia by ID.
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: socialmedia Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/pkg_socialmedia_delivery.reqUpdate'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/go-dts_pkg_util_http.BaseResponse'
+      security:
+      - JWT: []
+      summary: UpdateSocialMedia update SocialMedia by ID.
+      tags:
+      - SocialMedia
+schemes:
+- http
+securityDefinitions:
+  JWT:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
